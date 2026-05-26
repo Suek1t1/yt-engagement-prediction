@@ -1,44 +1,48 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import math
 
-# CSV読み込み
 df = pd.read_csv("USvideos.csv - Sheet1.csv")
 
-# 整数型に変換
+# 整数化
 df["views"] = df["views"].astype(int)
 df["likes"] = df["likes"].astype(int)
 df["category_id"] = df["category_id"].astype(int)
 
-# グラフサイズ
-plt.figure(figsize=(12, 8))
+# category一覧
+categories = sorted(df["category_id"].unique())
 
-# category_idごとに色分けして散布図
-categories = df["category_id"].unique()
+# 8個ずつに分割
+chunk_size = 8
+chunks = [categories[i:i+chunk_size] for i in range(0, len(categories), chunk_size)]
+print(len(categories))
 
-for category in categories:
-    if category == 10:
-        continue
-    subset = df[df["category_id"] == category]
+# グラフ枚数
+num_figs = len(chunks)
+print(len(chunks))
 
-    plt.scatter(
-        subset["views"],
-        subset["likes"],
-        label=f"Category {category}",
-        alpha=0.6
-    )
+for idx, chunk in enumerate(chunks):
+    plt.figure(figsize=(12, 8))
 
-# 軸ラベル
-plt.xlabel("Views")
-plt.ylabel("Likes")
+    for category in chunk:
+        subset = df[df["category_id"] == category]
 
-# タイトル
-plt.title("Views vs Likes by Category")
+        if category in [10, 24]:
+            continue
 
-# 凡例
-plt.legend()
+        plt.scatter(
+            subset["views"],
+            subset["likes"],
+            label=f"Category {category}",
+            alpha=0.5
+        )
 
-# グリッド
-plt.grid(True)
+    plt.xlabel("Views")
+    plt.ylabel("Likes")
+    plt.title(f"Views vs Likes (Category group {idx+1})")
+    plt.legend()
+    plt.grid(True)
 
-# 表示
-plt.show()
+    # 保存
+    plt.savefig(f"scatter_group_{idx+1}.png", dpi=300, bbox_inches="tight")
+    plt.close()
