@@ -2,6 +2,9 @@
 # english_titles.csv
 USvideos.csv - Sheet1.csv
 
+# 大容量の出力ファイル
+onehot/onehot_features.csv
+
 # Python
 __pycache__/
 *.pyc
