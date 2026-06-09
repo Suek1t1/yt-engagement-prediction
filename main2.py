@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import math
 
-
+#実行するとファイルがたくさん増えます注意
 df = pd.read_csv("USvideos.csv - Sheet1.csv")
 
 # 数値化
