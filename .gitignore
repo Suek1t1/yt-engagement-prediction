@@ -1,0 +1,8 @@
+# 元データ（大容量のため除外）
+# english_titles.csv
+USvideos.csv - Sheet1.csv
+
+# Python
+__pycache__/
+*.pyc
+.DS_Store
