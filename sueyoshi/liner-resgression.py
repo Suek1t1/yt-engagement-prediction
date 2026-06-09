@@ -5,6 +5,8 @@ import japanize_matplotlib
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_absolute_percentage_error
+
 
 # データセットを読み込む
 df = pd.read_csv('USvideos.csv - Sheet1.csv')
@@ -28,6 +30,13 @@ y_pred = model.predict(X_test)
 
 print(f"決定係数 (R^2): {model.score(X_test, y_test)}")
 print(f"平均二乗誤差 (MSE): {mean_squared_error(y_test, y_pred)}")
+
+# 平均絶対百分率誤差 (MAPE) を計算して表示する
+mask = y_test > 0  # 0より大きいデータだけ残す
+y_true_clean = y_test[mask]
+y_pred_clean = y_pred[mask]
+mape = mean_absolute_percentage_error(y_true_clean, y_pred_clean)
+print(f"修正後のMAPE: {mape * 100:.2f}%")
 
 # 予測値と実際の値をプロットする
 plt.scatter(y_test, y_pred)
