@@ -1,9 +1,15 @@
 # 元データ（大容量のため除外）
-# english_titles.csv
+english_titles.csv
 USvideos.csv - Sheet1.csv
+onehot_functions.csv
+onehot_functions_top500.py
 
-# 大容量の出力ファイル
+# 大容量の生成物（GitHubの100MB上限超）
 onehot/onehot_features.csv
+
+# 一時ログ・使い捨てスクリプト
+likes_rf_genre_log/_*.txt
+likes_rf_genre_log/_*.py
 
 # Python
 __pycache__/
