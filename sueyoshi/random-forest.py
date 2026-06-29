@@ -9,18 +9,21 @@ from sklearn.metrics import mean_squared_error
 from sklearn.metrics import mean_absolute_percentage_error
 
 # データセットを読み込む
-df = pd.read_csv('USvideos.csv - Sheet1.csv')
+df = pd.read_csv('english_titles.csv')
 
-# 必要な列を選択する
-df = df[['views', 'likes', 'dislikes', 'comment_count']]    # ここでは簡易的な説明変数をviews, dislikes, comment_countとし、
+''' デバック用。消していい
+print("--- データフレームの基本情報 ---")
+print(df.info())  # 各列の名前と型を表示
+print("\n--- 先頭5行を表示 ---")
+print(df.head())
+'''
 
 # モデル
 model = RandomForestRegressor(n_estimators=100, random_state=42)
 
-# 特徴量の選択
-X = df[['views', 'dislikes', 'comment_count']]
-y = df['likes']
-
+# 特従量の選択
+X = df.select_dtypes(include=[np.number]).drop(columns=['likes_x', 'likes_y', 'views', 'dislikes'])  # 'likes'列を除いた数値の特徴量
+y = df['likes_y']
 
 # データをトレーニングセットとテストセットに分割する
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -46,6 +49,6 @@ print(f"修正後のMAPE: {mape * 100:.2f}%")
 plt.scatter(y_test, y_pred)
 plt.xlabel('実際の値')
 plt.ylabel('予測値')
-plt.title('説明変数= views, dislikes, comment_count')
+plt.title('説明変数= one-hotエンコードされたタグ')
 plt.plot([y.min(), y.max()], [y.min(), y.max()], 'k--', lw=2)
 plt.show()
