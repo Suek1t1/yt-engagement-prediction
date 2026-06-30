@@ -41,10 +41,15 @@ X = df[
     ]
 ]
 
-y = df["likes"]
+
+# 0の対策として +1 してから対数を取る（np.log1p）
+X["views"] = np.log1p(X["views"])
+y = np.log1p(df["likes"])
+
 
 #NaN問題確認
 print(df.isnull().sum())
+
 
 #データセットを分割
 from sklearn.model_selection import train_test_split
