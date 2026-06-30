@@ -1,0 +1,5 @@
+conf,floor_rate,mean_floor_class,overshoot_avg_steps
+argmax,0.851,2.26,1.27
+0.5,0.881,2.17,1.17
+0.7,0.95,1.78,1.14
+0.9,0.994,0.99,1.0

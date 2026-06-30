@@ -11,6 +11,9 @@ onehot/onehot_features.csv
 likes_rf_genre_log/_*.txt
 likes_rf_genre_log/_*.py
 
+# Claude 用ローカルメモ（コミットしない）
+CLAUDE.md
+
 # Python
 __pycache__/
 *.pyc
