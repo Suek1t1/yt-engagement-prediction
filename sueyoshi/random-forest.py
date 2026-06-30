@@ -11,19 +11,20 @@ from sklearn.metrics import mean_absolute_percentage_error
 # データセットを読み込む
 df = pd.read_csv('english_titles.csv')
 
-''' デバック用。消していい
-print("--- データフレームの基本情報 ---")
-print(df.info())  # 各列の名前と型を表示
-print("\n--- 先頭5行を表示 ---")
-print(df.head())
-'''
+
+# embedding読み込み
+embedding = pd.read_csv('embedding_features_50.csv')
+
+
+# video_idで結合
+df = df.merge(embedding, on='video_id', how='inner')
 
 # モデル
 model = RandomForestRegressor(n_estimators=100, random_state=42)
 
 # 特従量の選択
-X = df.select_dtypes(include=[np.number]).drop(columns=['likes_x', 'likes_y', 'views', 'dislikes'])  # 'likes'列を除いた数値の特徴量
-y = df['likes_y']
+X = df.select_dtypes(include=[np.number]).drop(columns=['likes', 'dislikes', 'views'])  # 'likes'列を除いた数値の特徴量
+y = df['likes']
 
 # データをトレーニングセットとテストセットに分割する
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
