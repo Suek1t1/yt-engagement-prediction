@@ -175,7 +175,7 @@ Claudeとの作業セッションの生の記録（チャット内容メモ）�
    (b) likesインフレは2018年3月頃にレジーム転換しており、急勾配の外挿（D3）は崩壊する。
 4. 報告書 `G5中間報告書_続編.docx/pdf` に第5章として反映済み。
 
-### Phase8（第13回）: rolling-origin評価基盤（walk-forward）
+### Phase8（第12回）: rolling-origin評価基盤（walk-forward）
 
 1. 従来の80/20一発分割を、学習窓を伸ばしながらtest窓を4週ずつスライドさせる
    expanding window評価に格上げ（`likes_rolling_eval.py`）。最小学習窓10週・test窓4週で全6 fold。
@@ -193,7 +193,7 @@ Claudeとの作業セッションの生の記録（チャット内容メモ）�
    最終foldは対象週がデータ収集終了で件数40件と小さく参考値。
 4. 成果物: `likes_rolling_eval_folds.csv` / `_summary.csv` / `_plot.png`。
 
-### Phase9（第13回）: チャンネル効果の縮小推定（経験ベイズ）— コールドスタート対策
+### Phase9（第12回）: チャンネル効果の縮小推定（経験ベイズ）— コールドスタート対策
 
 1. `channel_mean_likes_log`（現行=fillna全体平均）を経験ベイズ収縮に置換
    （`likes_shrinkage.py`）: `shrunk=(n_c・ch_mean_c + k・cat_mean) / (n_c+k)`。
@@ -218,7 +218,7 @@ Claudeとの作業セッションの生の記録（チャット内容メモ）�
    （学習内の軽い自己参照は、厳密に排除するとかえって性能を落とす）。
 4. 成果物: `likes_shrinkage_k_tuning.csv` / `_group_compare.csv` / `_plot.png`。
 
-### Phase10（第13回）: log-likes加法分解（時代+チャンネル+内容の分散分解）
+### Phase10（第12回）: log-likes加法分解（時代+チャンネル+内容の分散分解）
 
 1. `log(likes) = 時代効果(D4) + チャンネル効果(方向性2の収縮推定) + 内容効果(RF) + ノイズ`
    の段階的残差回帰を実装（`likes_decompose.py`）。各段階でtestの分散をどれだけ削ったかを
@@ -242,7 +242,7 @@ Claudeとの作業セッションの生の記録（チャット内容メモ）�
    （従来の定性的な「Sports易/Gaming難」を数値で裏付け）。
 5. 成果物: `likes_decompose_contrib.csv` / `_by_fold.csv` / `_by_category.csv` / `_plot.png`。
 
-### Phase11（第13回）: ordinal分類・分位点回帰（順序情報の活用）
+### Phase11（第12回）: ordinal分類・分位点回帰（順序情報の活用）
 
 1. 現行のD4(時間相対比)4段階分類はRandomForestClassifierで名義（順序なし）クラスとして
    学習している。順序情報を使う2方式を追加（`likes_ordinal.py`、rolling-origin基盤fold0〜4）:
