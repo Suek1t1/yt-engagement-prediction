@@ -13,7 +13,7 @@ df = pd.read_csv('english_titles.csv')
 
 
 # embedding読み込み
-embedding = pd.read_csv('embedding_features_50.csv')
+embedding = pd.read_csv('embedding_features_20.csv')
 
 
 # video_idで結合
