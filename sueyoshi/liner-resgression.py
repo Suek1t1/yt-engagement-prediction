@@ -14,6 +14,17 @@ df = pd.read_csv('USvideos.csv - Sheet1.csv')
 # 必要な列を選択する
 df = df[['views', 'likes', 'dislikes', 'comment_count']]    # ここでは簡易的な説明変数をviews, dislikes, comment_countとし、目的変数をviewsとする
 
+Q1 = df['likes'].quantile(0.25)
+Q3 = df['likes'].quantile(0.75)
+IQR = Q3 - Q1
+
+# フェンス（下限と上限）を設定（一般的に1.5倍を使用）
+lower_fence = Q1 - 1.5 * IQR
+upper_fence = Q3 + 1.5 * IQR
+
+# 閾値の範囲内に収まるデータのみを抽出（フィルタリング）
+df = df[(df['likes'] >= lower_fence) & (df['likes'] <= upper_fence)]
+
 # 特徴量の選択
 X = df[['views', 'dislikes', 'comment_count']]
 y = df['likes']
