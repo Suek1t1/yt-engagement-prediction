@@ -42,3 +42,7 @@ thumbnail_features_1000.csv
 # 週次報告書（pushしない）
 *週目 報告.pdf
 *週目 報告.docx
+
+# 中間報告書（pushしない。ローカルにのみ保持）
+*中間報告書*.pdf
+*中間報告書*.docx
