@@ -24,3 +24,21 @@ CLAUDE.md
 __pycache__/
 *.pyc
 .DS_Store
+
+# 分割実行の中間部品・キャッシュ（assemble後は不要。結果CSVはコミット対象）
+likes_rf_genre_log/_*/
+likes_rf_genre_log/_*.npz
+likes_rf_genre_log/_*.json
+
+# ローカル実行時の大容量生成物（サムネイル画像・埋め込み）
+likes_rf_genre_log/_thumbs/
+
+# 個人メモ
+memo.docx
+
+# 班員から受領したデータ（正式版はpklを受領後に検討。git履歴を汚さない）
+thumbnail_features_1000.csv
+
+# 週次報告書（pushしない）
+*週目 報告.pdf
+*週目 報告.docx

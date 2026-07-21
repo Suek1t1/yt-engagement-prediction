@@ -95,6 +95,10 @@ YouTubeトレンド動画データを用いた高評価数（likes）予測モ�
 | `likes_shrinkage.py` | チャンネル効果の経験ベイズ縮小推定。知名度4群での比較（分割実行対応） |
 | `likes_decompose.py` | log-likesの加法分解（時代+チャンネル+内容）。rolling-origin基盤に乗せた分割実行対応 |
 | `likes_ordinal.py` | ordinal分類・分位点回帰による順序情報の活用。D4基準との比較（分割実行対応） |
+| `likes_conformal_floor.py` | split conformalによる理論保証つき最低保証。fold別カバレッジ検証（分割実行対応） |
+| `likes_dl_text.py` | スクラッチDAN（埋め込み+MLP）によるDL検証。TF-IDF+RFとの内容効果比較（分割実行対応） |
+| `run_local_multimodal.py` | ローカル実行用: sentence-transformers+CLIPサムネイルのマルチモーダル検証 |
+| `likes_channel_baseline.py` | チャンネル過去平均だけのベースライン。班員ViT実験のリーク検証用（2プロトコル比較） |
 
 ### 壁打ちメモ/
 外部LLM（ChatGPT・Gemini）との壁打ち内容の保存用ドキュメント、およびその派生ドキュメント（優先度表・実装チェックリスト等）をまとめたフォルダ。前提が本プロジェクトの現状（分類/分解への転換）とズレている場合があるため、活用時は必ずCLAUDE.mdの該当注記を確認してから使う。フォルダごと `.gitignore` でコミット対象外。
@@ -266,3 +270,49 @@ Claudeとの作業セッションの生の記録（チャット内容メモ）�
    分布シフトのあるこのデータでは較正が効かないことを示している。
    → **方向性3(Conformal Prediction)による理論的な較正が必要という根拠を実証的に補強した**。
 4. 成果物: `likes_ordinal_folds.csv` / `_summary.csv` / `_floor.csv`。
+
+### Phase12（第13回）: Conformal Prediction による最低保証の理論武装
+
+1. Phase11で判明した「GBR分位点回帰の実測カバレッジ77.4%<目標90%」を受け、split conformal
+   prediction で分布仮定なしの理論保証つき下限段階（predict_floor互換）を構築
+   （`likes_conformal_floor.py`、rolling-origin基盤・全6fold）。
+   各foldの学習窓末尾約20%を較正セットに割き、非適合度スコア s=P̂(y≤y_true) の
+   ⌊α(n+1)⌋番目の順序統計量でτを較正（P(保証違反)≤αが有限サンプルで成立）。
+
+| 構成（α=0.10, 目標90%） | カバレッジ平均(min) | mean_floor | 情報量(floor≥1率) |
+|---|---|---|---|
+| conformal(全較正窓)・D4 | **0.934 (0.905)** | 1.217 | 0.792 |
+| conformal(全較正窓)・v1 | **0.930 (0.906)** | 1.565 | 0.834 |
+| 無較正(τ=α)・D4 | 0.963 (**0.882**) | 0.910 | 0.719 |
+| conformal(直近2週窓)・D4 | 0.918 (**0.882**) | 1.334 | 0.813 |
+
+2. **合格基準達成**: conformal は全foldでカバレッジ≥0.905 と理論通り90%保証を実測達成。
+   無較正はfoldにより0.882へ割れる上に下限が浅く（保証も情報量も劣る）、
+   「経験則→統計的保証」への格上げが実証された。95%版（α=0.05）も達成（min 0.945〜0.953）。
+3. 較正窓を直近2週に絞ると較正サンプル不足で保証が壊れる（min 0.882）。
+   このデータ規模では**全較正期間を使うのが正解**（適応的較正窓は不要）。
+4. 成果物: `likes_conformal_folds.csv` / `_summary.csv` / `_plot.png`。
+
+### Phase13（第13回）: ディープラーニング検証（スクラッチDAN・テキスト内容効果）
+
+1. 「内容効果の弱さはTF-IDF+RFの表現力の限界か」を検証するため、単語埋め込み（64次元・
+   学習可能）→平均プーリング→MLP(128→64→4) の Deep Averaging Network を numpy で
+   スクラッチ実装（`likes_dl_text.py`、依存はnumpy/scipyのみ）。概要欄(description)の
+   追加効果も同時にアブレーション。rolling-origin全foldで評価（fold5はn=40の参考値）。
+
+| 構成（fold0-4平均） | acc | 低F1 | 新規ch群 ρ |
+|---|---|---|---|
+| RF_content(TF-IDF, title+tags) | 0.454 | **0.455** | **0.332** |
+| DAN_content(title+tags) | 0.443 | 0.420 | 0.269 |
+| DAN_content(+description) | 0.452 | 0.442 | 0.321 |
+| DAN_full(+channel特徴) | 0.473 | 0.392 | 0.225 |
+| （参照）RF_full | **0.477** | 0.423 | - |
+
+2. **スクラッチDLはRFを上回らなかった**: 同一入力ではTF-IDF+RFが全指標で優位。
+   概要欄はDAN内では改善（acc+0.9pt、新規ch ρ 0.269→0.321）するがRF水準に届かない。
+   → 「内容の説明力の薄さ」はモデル表現力ではなく情報自体の限界である可能性がさらに強まった
+   （Phase10の内容効果6.8%と整合）。5,817件でのスクラッチ学習はデータ量的にも不利。
+3. 残る可能性は**事前学習表現**: sentence-transformers（意味埋め込み）とCLIP（サムネイル）は
+   sandboxのネットワーク遮断で実行不可のため、ローカル実行用 `run_local_multimodal.py` を整備
+   （text_embed→download→clip_embed→evaluateの4段階、同一プロトコルで比較可能）。
+4. 成果物: `likes_dl_text_folds.csv` / `_summary.csv`、`run_local_multimodal.py`。
