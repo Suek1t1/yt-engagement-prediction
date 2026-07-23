@@ -11,6 +11,8 @@ import re
 
 #使用アルゴリズム: LightGBM
 #viewなし
+#特徴量追加(!,?,大文字,投稿日の処理)
+#対数取った
 #word-transformerを使ったタイトルの意味ベクトル化
 
 

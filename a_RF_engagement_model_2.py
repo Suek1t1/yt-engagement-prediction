@@ -5,9 +5,13 @@ from sklearn.metrics import mean_absolute_error, r2_score
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
+#使用アルゴリズム：ランダムフォレスト
+#viewなし
+#特徴量追加(!,?,大文字,投稿日の処理)
+#対数取った
 
 # 1. CSV読み込み
-df = pd.read_csv("USvideos.csv - Sheet1.csv")
+df = pd.read_csv("english_titles.csv")
 
 # 2. 欠損値の事前処理
 df["description"] = df["description"].fillna("")
