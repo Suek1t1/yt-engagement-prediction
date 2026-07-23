@@ -1,3 +1,4 @@
+# ラベルの埋め込みとk-meansでクラスタリングをするコード
 import numpy as np
 from collections import Counter
 from sentence_transformers import SentenceTransformer
