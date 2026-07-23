@@ -2,10 +2,12 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import japanize_matplotlib
 from sklearn.decomposition import PCA
 
 # --- 設定：フォントの豆腐文字（文字化け）を防ぐ設定 ---
 plt.rcParams['font.family'] = 'sans-serif' 
+japanize_matplotlib.japanize()
 
 # --------------------------------------------------
 # 1. データの読み込み
