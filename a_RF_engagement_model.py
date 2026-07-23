@@ -8,6 +8,14 @@ from transformers import AutoTokenizer, AutoModel
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 
+#cd Gread3_1/info-dm-g5
+
+#使用アルゴリズム: LightGBM
+#viewなし
+#word-transformerを使ったタイトルの意味ベクトル化
+#画像データを使ったサムネイル特徴量の追加
+
+
 # ==========================================
 # ⚙️ 設定・モデルの準備
 # ==========================================
@@ -21,13 +29,34 @@ device = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.ba
 model_bert = model_bert.to(device)
 model_bert.eval() # 評価モードに設定
 
-# 1. CSV読み込み
+# ==========================================
+# 1. CSV読み込みとスエキチの画像データの結合
+# ==========================================
+print("--- データを読み込み中 ---")
 df = pd.read_csv("english_titles.csv")
+print(f"元のデータの件数: {len(df)} 件")
+# 友達の画像データ
+df_vision = pd.read_csv("thumbnail_features_1000.csv") # ※実際のファイル名にしてください
+print(f"友達のデータの件数: {len(df_vision)} 件")
+# 🚨 how="inner" から how="left" に変更！（あなたの元のデータを絶対に消さない設定）
+df = pd.merge(df, df_vision, on="video_id", how="left")
+print(f"結合後のデータの件数: {len(df)} 件")
+# 🚨 デバッグ用：本当にlikesが存在するか、データが空になっていないか画面に出す
+print("現在のデータフレームの列名一覧:", df.columns.tolist())
+if len(df) == 0:
+    print("⚠️ 警告: データが0件になっています！video_idが一致していません。")
 
-# 2. 欠損値の事前処理
-df["description"] = df["description"].fillna("")
-df["tags"] = df["tags"].fillna("")
-df["title"] = df["title"].fillna("")
+# ==========================================
+# 2. 特徴量エンジニアリング（サムネイル特徴量の追加）
+# ==========================================
+# 1. サムネイルに文字が含まれているか？（文字数カウント、欠損値は0に）
+df['vision_text_len'] = df['extracted_text'].fillna('').astype(str).str.len()
+# 2. サムネイルに写っているオブジェクト（labels）の文字列の長さ（タグが多いほど長くなる）
+df['vision_label_len'] = df['labels'].fillna('').astype(str).str.len()
+# 3. ネット上の関連ワード（web_entities）の文字列の長さ
+df['vision_web_len'] = df['web_entities'].fillna('').astype(str).str.len()
+# ---- 元々あったあなたの特徴量作成コード（例えば視聴回数とか投稿日数の処理など）をここに残す ----
+# 例: X = df[['views', 'vision_text_len', 'vision_label_len', 'vision_web_len', ...]]
 
 # 3. 新しい特徴量の作成（これまでのメタデータ）
 df["title_len"] = df["title"].str.len()

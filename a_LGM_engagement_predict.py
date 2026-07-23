@@ -9,6 +9,11 @@ from tqdm import tqdm
 import matplotlib.pyplot as plt
 import re
 
+#使用アルゴリズム: LightGBM
+#viewなし
+#word-transformerを使ったタイトルの意味ベクトル化
+
+
 # ==========================================
 # ⚙️ 設定・モデルの準備
 # ==========================================
