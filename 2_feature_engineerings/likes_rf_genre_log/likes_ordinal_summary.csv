@@ -1,0 +1,4 @@
+method,label,n_folds,acc_mean,acc_min,acc_max,adj1_mean,adj1_min,adj1_max,macroF1_mean,low_f1_mean,low_f1_min,low_f1_max
+D4_baseline,D4基準(名義4クラスRF),5,0.477,0.411,0.54,0.851,0.735,0.899,0.453,0.423,0.23,0.634
+ordinal,ordinal(累積二値分類×3),5,0.47,0.399,0.535,0.846,0.731,0.905,0.448,0.426,0.23,0.635
+quantile,quantile(GBR分位点回帰+閾値切り),5,0.474,0.42,0.528,0.857,0.733,0.913,0.429,0.292,0.136,0.367

@@ -1,0 +1,6 @@
+,R2_log,R2_log,R2_log,MAE_log,MAE_log,MAE_log,spearman,spearman,spearman,MdAPE%,MdAPE%,MdAPE%,PI90_coverage,PI90_coverage,PI90_coverage,PI90_width_factor,PI90_width_factor,PI90_width_factor
+,mean,min,max,mean,min,max,mean,min,max,mean,min,max,mean,min,max,mean,min,max
+model,,,,,,,,,,,,,,,,,,
+CH_only,0.014,-0.244,0.394,1.198,1.007,1.403,0.599,0.563,0.661,65.38,60.8,75.1,,,,,,
+RF_log,-0.021,-0.312,0.371,1.173,0.991,1.404,0.602,0.561,0.674,63.98,57.1,76.4,,,,,,
+RF_ratio,0.12,-0.33,0.362,1.104,0.901,1.41,0.61,0.575,0.677,63.94,58.1,75.6,0.893,0.857,0.952,171.02,51.6,340.6

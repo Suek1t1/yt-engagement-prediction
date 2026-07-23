@@ -1,0 +1,7 @@
+mode,halflife,R2_log,MdAPE%,rho,thin_rho
+nonstrict,H12,0.276,70.02,0.637,0.67
+nonstrict,H6,0.287,69.16,0.623,0.641
+nonstrict,inf,0.285,70.22,0.644,0.692
+strict,H12,0.328,74.7,0.619,0.649
+strict,H6,0.322,74.18,0.603,0.597
+strict,inf,0.335,73.5,0.628,0.684

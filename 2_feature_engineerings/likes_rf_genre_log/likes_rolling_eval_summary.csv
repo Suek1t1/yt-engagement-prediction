@@ -1,0 +1,3 @@
+method,label,n_folds,acc_mean,acc_min,acc_max,adj1_mean,adj1_min,adj1_max,macroF1_mean,low_f1_mean,low_f1_min,low_f1_max
+D4_naive,時間相対比(最終水準持ち越し),6,0.452,0.325,0.54,0.859,0.735,0.9,0.431,0.408,0.23,0.634
+v1,学習分位点(現状),6,0.579,0.416,0.653,0.877,0.729,0.931,0.463,0.247,0.0,0.507

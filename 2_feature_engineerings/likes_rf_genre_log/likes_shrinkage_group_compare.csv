@@ -1,0 +1,21 @@
+group,model,n_test,spearman,auc_median,r2_log,model_label,group_label
+ALL,current,1164,0.622,0.816,0.106,current(fillna=全体平均),全体
+famous,current,530,0.69,0.883,0.041,current(fillna=全体平均),有名(6本+)
+mid,current,315,0.751,0.947,0.459,current(fillna=全体平均),中堅(2-5本)
+obscure,current,99,0.588,0.79,-0.77,current(fillna=全体平均),無名(1本)
+cold,current,220,0.125,0.602,0.045,current(fillna=全体平均),新規(学習期間に無し)
+ALL,shrink,1164,0.654,0.841,0.07,"shrink(経験ベイズ, k=1)",全体
+famous,shrink,530,0.696,0.877,-0.086,"shrink(経験ベイズ, k=1)",有名(6本+)
+mid,shrink,315,0.748,0.944,0.398,"shrink(経験ベイズ, k=1)",中堅(2-5本)
+obscure,shrink,99,0.601,0.82,-0.391,"shrink(経験ベイズ, k=1)",無名(1本)
+cold,shrink,220,0.363,0.751,0.019,"shrink(経験ベイズ, k=1)",新規(学習期間に無し)
+ALL,shrink_strict,1164,0.459,0.817,-0.578,"shrink_strict(学習内は投稿前実績のみ, k=1)",全体
+famous,shrink_strict,530,0.527,0.83,-0.696,"shrink_strict(学習内は投稿前実績のみ, k=1)",有名(6本+)
+mid,shrink_strict,315,0.545,0.873,-0.19,"shrink_strict(学習内は投稿前実績のみ, k=1)",中堅(2-5本)
+obscure,shrink_strict,99,0.273,0.675,-1.116,"shrink_strict(学習内は投稿前実績のみ, k=1)",無名(1本)
+cold,shrink_strict,220,0.289,0.765,-0.746,"shrink_strict(学習内は投稿前実績のみ, k=1)",新規(学習期間に無し)
+ALL,content,1164,0.445,0.822,-0.562,content(内容特徴のみ),全体
+famous,content,530,0.532,0.843,-0.63,content(内容特徴のみ),有名(6本+)
+mid,content,315,0.524,0.876,-0.232,content(内容特徴のみ),中堅(2-5本)
+obscure,content,99,0.183,0.657,-1.323,content(内容特徴のみ),無名(1本)
+cold,content,220,0.281,0.761,-0.661,content(内容特徴のみ),新規(学習期間に無し)

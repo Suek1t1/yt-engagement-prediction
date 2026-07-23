@@ -1,0 +1,15 @@
+/sessions/beautiful-upbeat-einstein/.local/lib/python3.10/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+lgb40 fold 0 best_iter=492
+/sessions/beautiful-upbeat-einstein/.local/lib/python3.10/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+lgb40 fold 1 best_iter=659
+/sessions/beautiful-upbeat-einstein/.local/lib/python3.10/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+lgb40 fold 2 best_iter=458
+/sessions/beautiful-upbeat-einstein/.local/lib/python3.10/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+lgb40 fold 3 best_iter=603
+/sessions/beautiful-upbeat-einstein/.local/lib/python3.10/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+lgb40 fold 4 best_iter=739
