@@ -25,7 +25,7 @@ print(f'フェンス適用後のデータ数: {len(df)} 件\n')
 
 # 3. 特徴量の選択
 # 除外する列のリスト
-exclude_cols = ['likes', 'dislikes', 'views', 'comment_count', 'video_id']
+exclude_cols = ['likes', 'dislikes', 'views', 'comment_count']
 
 # データフレームから「数値型の列」かつ「除外リストに含まれない列」を自動抽出
 numeric_cols = df.select_dtypes(include=[np.number]).columns
