@@ -15,7 +15,7 @@ model.eval()
 
 # 2. データ読み込みとランダム抽出
 df = pd.read_csv('datasets/english_titles.csv')
-sample_df = df.sample(n=15000, random_state=42) # random_stateで再現性を確保
+sample_df = df.sample(n=10000, random_state=42) # random_stateで再現性を確保
 
 # 3. データ格納用リスト
 processed_data = []
@@ -51,5 +51,5 @@ for _, row in tqdm(sample_df.iterrows(), total=len(sample_df)):
 
 # 5. 保存 (ベクトルデータはpickleが便利です)
 final_df = pd.DataFrame(processed_data)
-final_df.to_pickle("datasets/sample_15000_data.pkl")
+final_df.to_pickle("datasets/sample_10000_data.pkl")
 print("15,000件の処理が完了しました。")

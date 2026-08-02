@@ -12,7 +12,7 @@ from tqdm import tqdm
 
 # 1. データの読み込み
 # ※注意：10,000件分のベクトルデータが入ったファイル名を指定してください
-data = pd.read_pickle("datasets/sample_15000_data_pca.pkl") 
+data = pd.read_pickle("datasets/sample_10000_data_pca.pkl") 
 
 # --- IQR（四分位範囲）による外れ値の自動除外 ---
 Q1 = data['likes'].quantile(0.25)
@@ -42,7 +42,7 @@ mape_scores = []
 
 print(f"PCAの次元数を {n_components} に固定し、データ数を変えながら検証します...")
 
-data_sizes = list(range(1000, 12001, 1000))  # 1000から12000まで1000刻み
+data_sizes = list(range(1000, 7700, 1000))  # 1000から12000まで1000刻み
 
 # 2. ループ処理(1000件刻みで1000~12000まで実行)
 for size in tqdm(data_sizes, desc="学習進捗"):

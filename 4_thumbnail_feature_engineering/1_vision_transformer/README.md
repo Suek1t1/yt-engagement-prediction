@@ -1,7 +1,5 @@
 # サムネイルでの Vision-Transformer 利用
 
-担当：末吉良多 245429H
-
 YouTubeなどのサムネイル画像（`english_titles.csv` の `thumbnail_link`）を Vision-Transformer (ViT) でベクトル化し、動画の `likes` 数（高評価数）を予測する実験の記録です。
 
 ---
@@ -74,3 +72,21 @@ YouTubeなどのサムネイル画像（`english_titles.csv` の `thumbnail_link
 
 > [!NOTE]
 > MAPE（平均絶対パーセント誤差）の値から分かる通り、300%台と今までで一番良い精度が得られました。
+
+---
+
+## 5. curve fittingを用いた将来の MAPE 予測
+
+`predict_population_mape.py` を用いて、これまでのデータ数ごとの MAPE の推移を curve fitting で近似し、より多いデータ数（37,000 件）における予測誤差を推定しました。
+
+### 実施内容
+- これまでの実験結果（データ数ごとの MAPE）をもとに、曲線近似を行う
+- 37,000 件程度での MAPE がどの程度になるかを外挿的に予測する
+- 予測結果を可視化したグラフを `predict_population_mape.png` として保存する
+
+### 結果
+![performance_vs_datasize](figures/predict_population_mape.png)
+
+> [!NOTE]
+> 予想MAPEは170.00%。依然として高いものの、一番良い記録となった。
+

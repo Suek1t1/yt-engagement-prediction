@@ -5,7 +5,7 @@ from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 
 # データの読み込み
-data = pd.read_pickle("datasets/sample_15000_data.pkl")
+data = pd.read_pickle("datasets/sample_1000_data.pkl")
 
 # データの準備
 X = np.stack(data['vector'].values)
