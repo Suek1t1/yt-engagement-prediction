@@ -1,0 +1,3 @@
+/sessions/beautiful-upbeat-einstein/.local/lib/python3.10/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+fold 4 best_iter=902

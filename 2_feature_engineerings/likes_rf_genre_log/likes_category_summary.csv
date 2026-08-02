@@ -1,0 +1,4 @@
+model,R2_log,MdAPE,rho
+C_denom,0.289,68.38,0.629
+C_model,0.268,68.08,0.629
+G_global,0.285,70.22,0.644
