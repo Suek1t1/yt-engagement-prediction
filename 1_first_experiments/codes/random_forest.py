@@ -24,8 +24,6 @@ df = df[(df['likes'] >= lower_fence) & (df['likes'] <= upper_fence)]
 print(f'フェンス適用後のデータ数: {len(df)} 件\n')
 
 # 3. 特徴量の選択
-# 除外する列のリスト
-exclude_cols = ['likes', 'dislikes', 'views', 'comment_count']
 
 # データフレームから「数値型の列」かつ「除外リストに含まれない列」を自動抽出
 numeric_cols = df.select_dtypes(include=[np.number]).columns
@@ -33,7 +31,7 @@ feature_cols = [col for col in numeric_cols if col not in exclude_cols]
 
 print(f'選択された特徴量（{len(feature_cols)}個）: {feature_cols}\n')
 
-X = df[feature_cols]
+X = df[['dislikes', 'views', 'comment_count']]
 y = df['likes']
 
 # 4. データをトレーニングセットとテストセットに分割する
