@@ -9,10 +9,11 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_percentage_error
 from tqdm import tqdm  # 進捗バーを表示するためのライブラリ
+from utils import random_forest
 
 # 1. データの読み込み
 # 圧縮前（768次元）の元のpklファイルを読み込みます
-data = pd.read_pickle("datasets/sample_1000_data.pkl")
+data = pd.read_pickle("4_thumbnail_feature_engineering/1_vision_transformer/datasets/sample_1000_data.pkl")
 
 # データの準備
 X = np.stack(data['vector'].values)
@@ -30,32 +31,18 @@ mape_scores = []
 
 print("次元数を10から760まで変更しながら検証を開始します...")
 
-# 3. ループ処理 (tqdmで進捗バーを表示)
+# 3. ループ処理
 for n in tqdm(dimensions, desc="学習進捗"):
     # PCAでn次元に圧縮
     pca = PCA(n_components=n)
     X_reduced = pca.fit_transform(X_scaled)
-    
-    # 訓練データとテストデータに分割
-    X_train, X_test, y_train, y_test = train_test_split(X_reduced, y, test_size=0.2, random_state=42)
-    
-    # ランダムフォレストの構築と学習
-    model = RandomForestRegressor(n_estimators=100, random_state=42, n_jobs=-1)
-    model.fit(X_train, y_train)
-    
-    # 予測
-    predictions = model.predict(X_test)
-    
-    # 評価 (R^2)
-    r2 = model.score(X_test, y_test)
+
+    # ランダムフォレストで学習と予測
+    y_test, y_pred, r2, mse, mape = random_forest(X_reduced, y)
     r2_scores.append(r2)
-    
-    # 評価 (MAPE - 0除算を回避)
-    mask = y_test > 0
-    y_true_clean = y_test[mask]
-    y_pred_clean = predictions[mask]
-    mape = mean_absolute_percentage_error(y_true_clean, y_pred_clean)
-    mape_scores.append(mape * 100)
+    mape_scores.append(mape)
+
+    print("-" * 50)
 
 print("すべての評価が完了しました。グラフを描画します。")
 
@@ -79,5 +66,5 @@ ax2.grid(True)
 plt.tight_layout()
 
 # 5. プロットの保存
-plt.savefig("figures/performance_vs_dimensions.png")
+plt.savefig("4_thumbnail_feature_engineering/1_vision_transformer/figures/performance_vs_dimensions.png")
 plt.show()

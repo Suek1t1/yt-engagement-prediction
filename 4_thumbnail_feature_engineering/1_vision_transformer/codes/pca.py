@@ -5,7 +5,7 @@ from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 
 # データの読み込み
-data = pd.read_pickle("datasets/sample_1000_data.pkl")
+data = pd.read_pickle("datasets/4_thumbnail_feature_engineering/1_vision_transformer/sample_10000_data.pkl")
 
 # データの準備
 X = np.stack(data['vector'].values)
@@ -32,4 +32,4 @@ df_reduced = pd.DataFrame(X_reduced)
 df_reduced['likes'] = y 
 
 # これを保存
-pd.to_pickle(df_reduced, "datasets/sample_15000_data_pca.pkl")
+pd.to_pickle(df_reduced, "datasets/4_thumbnail_feature_engineering/1_vision_transformer/sample_10000_data_pca.pkl")

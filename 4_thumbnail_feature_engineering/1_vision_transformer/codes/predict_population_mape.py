@@ -39,7 +39,7 @@ plt.legend()
 plt.grid(True)
 
 # プロットの保存
-plt.savefig("figures/predict_population_mape.png")
+plt.savefig("4_thumbnail_feature_engineering/1_vision_transformer/figures/predict_population_mape.png")
 
 # 画面への表示
 plt.show()

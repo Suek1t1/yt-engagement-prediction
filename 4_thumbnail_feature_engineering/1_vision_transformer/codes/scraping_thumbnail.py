@@ -14,7 +14,7 @@ model = ViTModel.from_pretrained('google/vit-base-patch16-224-in21k')
 model.eval()
 
 # 2. データ読み込みとランダム抽出
-df = pd.read_csv('datasets/english_titles.csv')
+df = pd.read_csv('datasets/2_feature_engineerings/english_titles.csv')
 sample_df = df.sample(n=10000, random_state=42) # random_stateで再現性を確保
 
 # 3. データ格納用リスト
@@ -51,5 +51,5 @@ for _, row in tqdm(sample_df.iterrows(), total=len(sample_df)):
 
 # 5. 保存 (ベクトルデータはpickleが便利です)
 final_df = pd.DataFrame(processed_data)
-final_df.to_pickle("datasets/sample_10000_data.pkl")
-print("15,000件の処理が完了しました。")
+final_df.to_pickle("datasets/4_thumbnail_feature_engineering/1_vision_transformer/sample_10000_data.pkl")
+print("10000件の処理が完了しました。")

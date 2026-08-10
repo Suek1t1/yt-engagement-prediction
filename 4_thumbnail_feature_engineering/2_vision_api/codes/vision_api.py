@@ -59,7 +59,7 @@ def analyze_thumbnail_from_url(image_url, client):
 
 def main():
     print("データを読み込んでいます...")
-    df_all = pd.read_csv("english_titles.csv") 
+    df_all = pd.read_csv("datasets/2_feature_engineerings/english_titles.csv") 
     
     # --------------------------------------------------
     # 【追加】事前フィルター：サムネイルURLがない行を除外
@@ -107,7 +107,7 @@ def main():
     # （※ OCRで文字がなかっただけの行は "" が入るため削除されません）
     df_final = df_final.dropna(subset=['extracted_text'])
 
-    output_filename = "thumbnail_features_1000.csv"
+    output_filename = "datasets/4_thumbnail_feature_engineering/2_vision_api/thumbnail_features_1000.csv"
     df_final.to_csv(output_filename, index=False, encoding='utf-8-sig')
     
     print(f"\n解析完了！")
