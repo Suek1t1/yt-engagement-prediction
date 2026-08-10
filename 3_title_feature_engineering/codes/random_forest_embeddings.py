@@ -31,7 +31,7 @@ for dim in dimensions:
   y = df['likes']
 
   # 4 & 5. モデルのトレーニングと予測（外部ファイル化）
-  y_test, y_pred = random_forest(X, y)
+  y_test, y_pred, r2, mse, mape = random_forest(X, y)
 
   # 6. 予測値と実際の値をプロットして保存
   plot_predictions(y_test, y_pred,

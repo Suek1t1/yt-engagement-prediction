@@ -17,4 +17,4 @@ y_test, y_pred = linear_regression(X, y)
 # 6. 予測値と実際の値をプロットする（外部ファイル化）
 plot_predictions(y_test, y_pred,
                  title='説明変数: 視聴数, dislike数, コメント数',
-                 save_path='1_first_experiments/results/USvideos_LinearRegression.png')
+                 save_path='1_first_experiments/figures/USvideos_LinearRegression.png')
