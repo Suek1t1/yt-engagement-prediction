@@ -20,7 +20,7 @@ tag_freq["word"] = tag_freq["word"].astype(str).str.lower()
 word_weight = dict(zip(tag_freq["word"], 1.0 / tag_freq["count"]))
 
 # ── 2. 動画データ読み込み（video_id で重複除去）──────────────────
-df = pd.read_csv("english_titles.csv")
+df = pd.read_csv("datasets/2_feature_engineerings/english_titles.csv")
 df = df.drop_duplicates(subset="video_id").reset_index(drop=True)
 
 # ── 3. タイトルのトークン化（onehot_encoding.py と同じ作法）────────
@@ -51,5 +51,5 @@ print(f"対象動画数: {len(result)}")
 print("\n── スコア上位20 ──")
 print(result.head(20).to_string(index=False))
 
-result.to_csv("tag_weighted_title_score/tag_weighted_title_score.csv", index=False)
-print("\nCSV保存完了: tag_weighted_title_score/tag_weighted_title_score.csv")
+result.to_csv("datasets/2_feature_engineerings/tag_weighted_title_score.csv", index=False)
+print("\nCSV保存完了: datasets/2_feature_engineerings/tag_weighted_title_score.csv")

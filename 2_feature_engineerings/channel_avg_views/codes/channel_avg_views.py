@@ -6,7 +6,7 @@
 import pandas as pd
 
 # ── 1. データ読み込み ────────────────────────────────────────────
-df = pd.read_csv("english_titles.csv")
+df = pd.read_csv("datasets/2_feature_engineerings/english_titles.csv")
 
 # 同一動画が複数日トレンド入りして重複しているため video_id で重複除去
 df = df.drop_duplicates(subset="video_id").reset_index(drop=True)
@@ -36,5 +36,5 @@ print(f"チャンネル数: {len(channel_avg)}")
 print("\n── 平均再生回数 上位20チャンネル ──")
 print(channel_avg.head(20).to_string(index=False))
 
-channel_avg.to_csv("channel_avg_views/channel_avg_views.csv", index=False)
-print("\nCSV保存完了: channel_avg_views/channel_avg_views.csv")
+channel_avg.to_csv("datasets/2_feature_engineerings/channel_avg_views.csv", index=False)
+print("\nCSV保存完了: datasets/2_feature_engineerings/channel_avg_views.csv")

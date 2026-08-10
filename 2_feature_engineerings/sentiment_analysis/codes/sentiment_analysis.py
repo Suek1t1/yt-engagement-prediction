@@ -8,8 +8,8 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 # ============================================================
 # 設定
 # ============================================================
-INPUT_CSV  = "english_titles.csv"   # ← 入力ファイルのパスに変更
-OUTPUT_CSV = "sentiment_analysis.csv"  # ← 出力ファイル名
+INPUT_CSV  = "datasets/2_feature_engineerings/sentiment_analysis/english_titles.csv"   # ← 入力ファイルのパスに変更
+OUTPUT_CSV = "datasets/2_feature_engineerings/sentiment_analysis.csv"  # ← 出力ファイル名
 
 # ============================================================
 # 処理
