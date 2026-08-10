@@ -56,15 +56,17 @@ def linear_regression(X, y):
     y_pred = model.predict(X_test)
 
     # 評価指標の計算
-    print(f'決定係数 (R^2): {model.score(X_test, y_test):.4f}')
-    print(f'平均二乗誤差 (MSE): {mean_squared_error(y_test, y_pred):.4f}')
+    r2 = model.score(X_test, y_test)
+    mse = mean_squared_error(y_test, y_pred)
+    print(f'決定係数 (R^2): {r2:.4f}')
+    print(f'平均二乗誤差 (MSE): {mse:.4f}')
 
     # MAPEの計算 (ゼロ割り算を防ぐためのマスク処理)
     mask = y_test > 0
-    mape = mean_absolute_percentage_error(y_test[mask], y_pred[mask])
-    print(f'MAPE: {mape * 100:.2f}%\n')
+    mape = mean_absolute_percentage_error(y_test[mask], y_pred[mask])*100
+    print(f'MAPE: {mape:.2f}%\n')
 
-    return y_test, y_pred
+    return y_test, y_pred, r2, mse, mape
 
 # --- 実際の値と予測値をプロットする関数 ---
 def plot_predictions(y_test, y_pred, title=None, save_path=None):
