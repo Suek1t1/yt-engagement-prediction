@@ -36,4 +36,4 @@ for dim in dimensions:
   # 6. 予測値と実際の値をプロットして保存
   plot_predictions(y_test, y_pred,
                   title=f'Embedding ({dim}次元)',
-                  save_path=f'1_first_experiments/results/embedding_{dim}.png')
+                  save_path=f'1_first_experiments/figures/embedding_{dim}.png')
